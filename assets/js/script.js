@@ -56,15 +56,12 @@ function setBGColor($div, currentTime, textTime)
 function generateHourBlock(iterations)
 {
     if(!iterations)
-    {
-        iterations = 1;
-    }
+        {iterations = 1;}
 
     var currentTime = GetCurrentHour("LT");
 
     for(var i = 0; i < iterations; i++)
-    {
-        var text_time = text_Hour + text_Suffix;
+        {var text_time = text_Hour + text_Suffix;
 
         $iBlock = $("<div>").addClass("row py-1");
     
@@ -84,36 +81,25 @@ function generateHourBlock(iterations)
     
         $("#planner").append($iBlock);
     
-        incrementTextHour();
-    }
-}
+        incrementTextHour();}}
 
-function incrementTextHour()
-{
+function incrementTextHour() {
     if(text_Hour === 12)
-    {
-        text_Hour = 1;
-    }
+    {text_Hour = 1;}
+    
     else if(text_Hour === 11)
-    {
-        text_Suffix = ":00pm";
-        text_Hour++;
-    } else
-    {
-        text_Hour++;
-    }
-}
+    {text_Suffix = ":00pm"; text_Hour++;} 
+    
+    else
+    {text_Hour++;}}
 
 
-function DisplayDate(pFormat)
-{
+function DisplayDate(pFormat){
     var date = moment().format(pFormat);
 
-    $("#current-date").text(date);
-}
+    $("#current-date").text(date);}
 
-function GetCurrentHour(pFormat)
-{
+function GetCurrentHour(pFormat){
     var time = moment().format(pFormat).toLowerCase();
 
     time = time.split("");
@@ -125,61 +111,39 @@ function GetCurrentHour(pFormat)
     console.log(hour);
 
     if(time[time.length - 2] === "p")
-    {
-        console.log("afternoon");
-        suffix = ":00pm";
-    }
+    
+    {console.log("afternoon"); suffix = ":00pm";}
     else
-    {
-        console.log("morning");
-        suffix = ":00am";
-    }
+    {console.log("morning"); suffix = ":00am";}
 
     console.log(hour + suffix);
-    return hour + suffix;
-}
+    return hour + suffix;}
 
-function parseHour(pTime)
-{
+function parseHour(pTime){
     var i = 0;
     var iHour = "";
 
     while(pTime[i] !== ":" || i > 100)
-    {
-        iHour += pTime[i];
-        i++;
-    }
+    {iHour += pTime[i]; i++;}
 
-    return iHour;
-}
+    return iHour;}
 
 function AlterStoredBlocks(pText, pID)
-{
-    nBlock = {
-        id : pID,
-        input : pText.trim()
-    }
+{nBlock = 
+    {id : pID,
+    input : pText.trim()}
 
-    for(var i = 0; i < storedBlocks.length; i++)
-    {
+    for(var i = 0; i < storedBlocks.length; i++){
         if(storedBlocks[i].id === nBlock.id)
-        {
-            storedBlocks.splice(i, 1);
-
-            localStorage.setItem(storedBlocks_NAME, JSON.stringify(storedBlocks));
-
-            return null;
-        }
-    }
+        {storedBlocks.splice(i, 1); localStorage.setItem(storedBlocks_NAME, JSON.stringify(storedBlocks));
+            return null;}}
 
     storedBlocks.push(nBlock);
 
-    localStorage.setItem(storedBlocks_NAME, JSON.stringify(storedBlocks));
-}
+    localStorage.setItem(storedBlocks_NAME, JSON.stringify(storedBlocks));}
 
 
-function GetStoredBlocks()
-{
+function GetStoredBlocks(){
     if(localStorage.getItem(storedBlocks_NAME)){
         storedBlocks = JSON.parse(localStorage.getItem(storedBlocks_NAME));
 
@@ -194,8 +158,7 @@ function GetStoredBlocks()
             $iLock = $(($iBlock).parent().children().children()[1])
             
             $iLock.toggleClass("unlocked"); });
-    }
-}
+    }}
 
 generateHourBlock(10);
 DisplayDate("LLLL");
